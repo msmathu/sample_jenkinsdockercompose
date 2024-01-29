@@ -1,0 +1,40 @@
+version: '3.4'
+
+networks:
+  myAppNetwork:
+
+services:
+  SqlServerDb:
+    container_name: SqlServerContainer
+    networks:
+      - myAppNetwork
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 8002:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Msbeiber@63
+
+  WebApi:
+    container_name: WebApiContainer
+    image: ${DOCKER_REGISTRY-}webapisqlserverdockerdemo
+    networks:
+      - myAppNetwork
+    ports:
+      - 8001:8080
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - SqlServerDb
+
+  AngularFrontend:
+    container_name: AngularContainer
+    networks:
+      - myAppNetwork
+    image: ${DOCKER_REGISTRY-}angularapp
+    ports:
+      - "7543:443"
+    build:
+      context: ./NewDockerHelloApp
+      dockerfile: Dockerfile 
