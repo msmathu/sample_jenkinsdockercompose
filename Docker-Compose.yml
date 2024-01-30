@@ -16,7 +16,7 @@ services:
       - MSSQL_SA_PASSWORD=Msbeiber@63
 
   WebApi:
-    container_name: WebApiContainer
+    container_name: WebApiImageContainer
     image: ${DOCKER_REGISTRY-}webapisqlserverdockerdemo
     networks:
       - myAppNetwork
@@ -29,7 +29,7 @@ services:
       - SqlServerDb
 
   AngularFrontend:
-    container_name: AngularContainer
+    container_name: AngularImageContainer
     networks:
       - myAppNetwork
     image: ${DOCKER_REGISTRY-}angularapp
