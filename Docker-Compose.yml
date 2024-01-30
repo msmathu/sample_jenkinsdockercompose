@@ -5,7 +5,7 @@ networks:
 
 services:
   SqlServerDb:
-    container_name: SqlServerContainer
+    container_name: SqlServerImageContainer
     networks:
       - myAppNetwork
     image: mcr.microsoft.com/mssql/server:2019-latest
